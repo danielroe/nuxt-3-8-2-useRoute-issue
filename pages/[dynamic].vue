@@ -14,33 +14,19 @@
   </div>
 </template>
 
-<script>
-export default {
-  async setup() {
-    // This is just to test and it can be anything else really
-    await useFetch(`https://api.publicapis.org/entries`);
+<script setup lang="ts">
+// This is just to test and it can be anything else really
+await useFetch(`https://api.publicapis.org/entries`);
 
-    const route = useRoute();
+const route = useRoute();
 
-    return {
-      setupValue: route.params.dynamic,
-    };
-  },
+const setupValue = route.params.dynamic
 
-  data() {
-    return {
-      mountedValue: null,
-    };
-  },
+const mountedValue = ref(null)
 
-  computed: {
-    documentLocation() {
-      return document.location;
-    },
-  },
+const documentLocation = computed(() => document.location)
 
-  mounted() {
-    this.mountedValue = this.$route.params.dynamic;
-  },
-};
+onMounted(() => {
+  mountedValue.value = route.params.dynamic;
+})
 </script>
